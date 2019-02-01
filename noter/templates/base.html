@@ -21,9 +21,14 @@
                 <h1 class="title">Noter</h1>
                 <nav>
                     <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">New Note</a></li>
-                        <li><a href="#">Sign Out</a></li>
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('home') }}">Home</a></li>
+                        <li><a href="{{ url_for('add') }}">New Note</a></li>
+                        <li><a href="{{ url_for() }}">Sign Out</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('login') }}">Sign In</a></li>
+                        <li><a href="{{ url_for('signup') }}">Sign Up</a></li>
+                    {% endif %}
                     </ul>
                 </nav>
             </header>
@@ -31,14 +36,13 @@
 
         <div class="main-container">
             <div class="main wrapper clearfix">
-
-								{% block content %}
-								{% endblock %}
+                {% block content %}
+                {% endblock %}
 
                 <aside>
                     <h3>My Notes</h3>
-										{% block aside %}
-										{% endblock %}
+                    {% block aside %}
+                    {% endblock %}
                 </aside>
 
             </div> <!-- #main -->
